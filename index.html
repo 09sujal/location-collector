@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Collector Form Redirect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    button { padding: 12px 24px; font-size: 18px; background: #4CAF50; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+  <h2>📍 Share Your Location</h2>
+  <p>Click the button to get your current location and go to the form.</p>
+  <button onclick="getLocation()">Get Location & Go to Form</button>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error, {enableHighAccuracy: true});
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function success(position) {
+      const lat = position.coords.latitude.toFixed(6);
+      const lon = position.coords.longitude.toFixed(6);
+
+      // ✅ YOUR Google Form prefill URL with placeholders replaced
+      const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSdC60SXz2OSZHPSaxOXG8QbmEJAmiBcGmNFWSzkkr9gn3e1-A/viewform?usp=pp_url&entry.1067048042=" + lat + "&entry.1237302297=" + lon;
+
+      window.location.href = formURL;
+    }
+
+    function error() {
+      alert("❗ Unable to get your location. Please check browser or location settings and try again.");
+    }
+  </script>
+</body>
+</html>
